@@ -1,0 +1,52 @@
+{
+  "name": "entrepreneur-shaadi",
+  "version": "1.0.0",
+  "description": "A founder verification and matching platform using MCA data",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "cd apps/api && npm run dev",
+    "dev:web": "cd apps/web && npm run dev",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "cd apps/api && npm run build",
+    "build:web": "cd apps/web && npm run build",
+    "start": "concurrently \"npm run start:api\" \"npm run start:web\"",
+    "start:api": "cd apps/api && npm run start",
+    "start:web": "cd apps/web && npm run start",
+    "test": "npm run test:api && npm run test:web",
+    "test:api": "cd apps/api && npm run test",
+    "test:web": "cd apps/web && npm run test",
+    "lint": "npm run lint:api && npm run lint:web",
+    "lint:api": "cd apps/api && npm run lint",
+    "lint:web": "cd apps/web && npm run lint",
+    "type-check": "npm run type-check:api && npm run type-check:web",
+    "type-check:api": "cd apps/api && npm run type-check",
+    "type-check:web": "cd apps/web && npm run type-check"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/Entrepreneurship-shaadi.git"
+  },
+  "keywords": [
+    "entrepreneur",
+    "founder",
+    "verification",
+    "mca",
+    "matching",
+    "startup",
+    "india"
+  ],
+  "license": "MIT"
+}
