@@ -26,7 +26,7 @@ router.get('/company/:cin', async (req: Request, res: Response) => {
 });
 
 // POST /api/mca/verify-director
-router.post('/verify-director', async (req: Request, res: Response) => {
+router.post('/verify-director', async (_req: Request, res: Response) => {
   try {
     // TODO: Implement director verification
     res.json({ message: 'Director verification - Coming soon' });

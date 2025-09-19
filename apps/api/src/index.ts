@@ -1,8 +1,10 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
+import session from 'express-session';
+import passport from '@/config/passport';
 
 import authRoutes from '@/modules/auth/auth.controller';
 import mcaRoutes from '@/modules/mca/mca.controller';
@@ -35,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
 
 // Health check
-app.get('/health', (req, res) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
@@ -50,7 +52,7 @@ app.use('/api/match', matchRoutes);
 app.use(errorHandler);
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use('*', (_req: Request, res: Response) => {
   res.status(404).json({ error: 'Route not found' });
 });
 

@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 const router = Router();
 
 // GET /api/persona
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (_req: Request, res: Response) => {
   try {
     // TODO: Implement get user persona
     res.json({ message: 'Get user persona - Coming soon' });

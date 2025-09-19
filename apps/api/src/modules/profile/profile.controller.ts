@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 const router = Router();
 
 // GET /api/profile
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (_req: Request, res: Response) => {
   try {
     // TODO: Implement get user profile
     res.json({ message: 'Get user profile - Coming soon' });
@@ -14,7 +14,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 // PUT /api/profile
-router.put('/', async (req: Request, res: Response) => {
+router.put('/', async (_req: Request, res: Response) => {
   try {
     // TODO: Implement update user profile
     res.json({ message: 'Update user profile - Coming soon' });

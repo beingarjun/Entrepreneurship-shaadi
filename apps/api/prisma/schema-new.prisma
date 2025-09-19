@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Updated User model for Entrepreneur Matrimony
+model User {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  password         String   // Empty for OAuth users
+  name             String
+  bio              String?
+  
+  // OAuth Fields
+  googleId         String?  @unique
+  
+  // Basic Profile
+  age              Int?
+  birthYear        Int?
+  profilePicture   String?
+  location         String?
+  education        String?
+  maritalStatus    MaritalStatus?
+  
+  // Business Profile
+  companyName      String?
+  industry         String?
+  stage            BusinessStage?
+  income           Int?      // Annual income in base currency
+  
+  // Personality & Values (for AI matching)
+  values           String[]  // Array of core values
+  interests        String[]  // Personal interests/hobbies
+  entrepreneurialGoals String[]  // Business goals and aspirations
+  workLifeBalance  WorkLifeBalance?
+  familyPlans      Json?     // Complex family planning data
+  communicationStyle CommunicationStyle?
+  
+  // Platform Fields
+  isVerified       Boolean  @default(false)
+  isActive         Boolean  @default(true)
+  lastActive       DateTime @default(now())
+  
+  // Timestamps
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  // Relations
+  directorVerifications DirectorVerification[]
+  personas         Persona[]
+  sentMatches      Match[]  @relation("MatchFrom")
+  receivedMatches  Match[]  @relation("MatchTo")
+  matchPreferences MatchPreferences?
+  
+  @@map("users")
+}
+
+model MatchPreferences {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Age preferences
+  ageRange       Json?     // {min: number, max: number}
+  
+  // Location preferences
+  locations      String[]  // Preferred locations
+  
+  // Business preferences
+  industries     String[]  // Preferred industries
+  stages         BusinessStage[]  // Preferred business stages
+  education      String[]  // Education preferences
+  incomeRange    Json?     // {min: number, max: number}
+  
+  // Personal preferences
+  maritalStatus  MaritalStatus[]
+  values         String[]  // Important values to match
+  
+  // Settings
+  maxDistance    Int?      // Max distance in km
+  isActive       Boolean   @default(true)
+  
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  
+  @@map("match_preferences")
+}
+
+model DirectorVerification {
+  id            String                @id @default(cuid())
+  userId        String
+  user          User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName   String
+  cin           String
+  directorName  String
+  verification  Json                  // MCA response data
+  status        VerificationStatus
+  verifiedAt    DateTime?
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+
+  @@map("director_verifications")
+}
+
+model Company {
+  id            String   @id @default(cuid())
+  cin           String   @unique
+  name          String
+  status        String
+  incorporation DateTime
+  authorized    BigInt
+  paidUp        BigInt
+  category      String
+  subcategory   String
+  class         String
+  directors     Json     // Array of director data
+  addresses     Json     // Company addresses
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("companies")
+}
+
+model Persona {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title           String
+  description     String
+  targetAudience  String
+  goals           String[]
+  challenges      String[]
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("personas")
+}
+
+model Match {
+  id          String      @id @default(cuid())
+  fromUserId  String
+  toUserId    String
+  fromUser    User        @relation("MatchFrom", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUser      User        @relation("MatchTo", fields: [toUserId], references: [id], onDelete: Cascade)
+  status      MatchStatus @default(PENDING)
+  message     String?
+  isInterested Boolean    @default(false)
+  isSuperLike Boolean     @default(false)
+  matchedAt   DateTime?   // When both parties showed interest
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@unique([fromUserId, toUserId])
+  @@map("matches")
+}
+
+// Enums
+enum BusinessStage {
+  IDEA
+  MVP
+  EARLY_STAGE
+  GROWTH
+  MATURE
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  FAILED
+  EXPIRED
+}
+
+enum MatchStatus {
+  PENDING
+  MATCHED
+  REJECTED
+  EXPIRED
+}
+
+enum MaritalStatus {
+  SINGLE
+  DIVORCED
+  WIDOWED
+}
+
+enum WorkLifeBalance {
+  WORK_FOCUSED
+  BALANCED
+  LIFE_FOCUSED
+}
+
+enum CommunicationStyle {
+  DIRECT
+  DIPLOMATIC
+  ANALYTICAL
+  SUPPORTIVE
+}
