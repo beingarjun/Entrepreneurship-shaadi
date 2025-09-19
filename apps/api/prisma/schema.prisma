@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(uuid())
+  email             String    @unique
+  passwordHash      String    @map("password_hash")
+  fullName          String    @map("full_name")
+  phone             String?
+  roleSought        String?   @map("role_sought") // cofounder, investor, advisor
+  location          String?
+  preferences       Json?     // industries, values, etc.
+  isMcaVerified     Boolean   @default(false) @map("is_mca_verified")
+  emailVerified     Boolean   @default(false) @map("email_verified")
+  isActive          Boolean   @default(true) @map("is_active")
+  lastLoginAt       DateTime? @map("last_login_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  directorVerification DirectorVerification?
+  personas            Persona[]
+  sentMatches         Match[] @relation("MatchSender")
+  receivedMatches     Match[] @relation("MatchReceiver")
+
+  @@map("users")
+}
+
+model DirectorVerification {
+  id                String    @id @default(uuid())
+  userId            String    @unique @map("user_id")
+  din               String    @unique // Director Identification Number
+  nameAsPerMca      String    @map("name_as_per_mca")
+  dinAllotmentDate  DateTime? @map("din_allotment_date")
+  isActive          Boolean   @default(true) @map("is_active")
+  companies         Json      // Array of {cin, name, designation, from, to}
+  verifiedAt        DateTime  @default(now()) @map("verified_at")
+  lastSyncedAt      DateTime  @default(now()) @map("last_synced_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("director_verifications")
+}
+
+model Company {
+  cin                String    @id // Corporate Identification Number
+  name               String
+  status             String    // Active, Strike Off, etc.
+  type               String    // Pvt Ltd, LLP, etc.
+  industry           String?   // normalized industry
+  incorporationDate  DateTime? @map("incorporation_date")
+  paidUpCapital      BigInt?   @map("paid_up_capital")
+  registeredAddress  String?   @map("registered_address")
+  lastSyncedAt       DateTime  @default(now()) @map("last_synced_at")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  directors CompanyDirector[]
+
+  @@map("companies")
+}
+
+model CompanyDirector {
+  id               String    @id @default(uuid())
+  cin              String
+  din              String
+  designation      String
+  appointmentDate  DateTime? @map("appointment_date")
+  cessationDate    DateTime? @map("cessation_date")
+  isActive         Boolean   @default(true) @map("is_active")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  company Company @relation(fields: [cin], references: [cin], onDelete: Cascade)
+
+  @@unique([cin, din])
+  @@map("company_directors")
+}
+
+model Persona {
+  id               String   @id @default(uuid())
+  userId           String   @map("user_id")
+  seniority        String   // Early, Growth, Late
+  archetype        String   // Operator, Visionary, Serial Founder, etc.
+  experienceScore  Int      @map("experience_score")
+  governanceScore  Int      @map("governance_score")
+  industryAffinity Json     @map("industry_affinity") // top 3 industries with scores
+  features         Json     // signals used for generation
+  isActive         Boolean  @default(true) @map("is_active")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("personas")
+}
+
+model Match {
+  id           String      @id @default(uuid())
+  senderId     String      @map("sender_id")
+  receiverId   String      @map("receiver_id")
+  score        Int         // 0-100 match score
+  factors      Json        // breakdown of matching factors
+  status       MatchStatus @default(PENDING)
+  message      String?     // optional message from sender
+  viewedAt     DateTime?   @map("viewed_at")
+  respondedAt  DateTime?   @map("responded_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  sender   User @relation("MatchSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("MatchReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@map("matches")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?  @map("user_id")
+  action    String   // MCA_LOOKUP, PROFILE_UPDATE, etc.
+  resource  String   // DIN, CIN, USER_PROFILE, etc.
+  details   Json     // specific details of the action
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("audit_logs")
+}
+
+enum MatchStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
