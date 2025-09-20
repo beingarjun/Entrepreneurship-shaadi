@@ -196,6 +196,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ---
 
+<<<<<<< HEAD
 ## 🎯 Ready to Connect Business Minds?
 
 **[🚀 View Interactive Pitch Deck](https://beingarjun.github.io/Entrepreneurship-shaadi/pitch-deck.html)**
@@ -209,3 +210,6 @@ Built with ❤️ for entrepreneurs, by entrepreneurs.
 *For investor inquiries and partnerships: [Contact Us](mailto:contact@entrepreneurshaadi.com)*
 
 Built with ❤️ for the entrepreneurial ecosystem in India.
+=======
+Built with ❤️ for the entrepreneurial ecosystem in India.
+>>>>>>> 78cd6d669a16922c25f6be4a46eab0b9ff7589f1
