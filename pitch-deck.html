@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneur Shaadi - Where Business Minds Find Love</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #333;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .problem-card {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .problem-icon {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Competitor Analysis */
+        .competitors {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 40px;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .entrepreneur-shaadi {
+            background: #e8f5e8;
+            font-weight: 600;
+        }
+        
+        .check {
+            color: #28a745;
+            font-size: 1.2rem;
+        }
+        
+        .cross {
+            color: #dc3545;
+            font-size: 1.2rem;
+        }
+        
+        /* Verification Section */
+        .verification {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .verification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .verification-item {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .verification-item:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+        
+        .verification-badge {
+            background: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        
+        /* Market Size */
+        .market {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .market-card {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .market-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        /* Roadmap */
+        .roadmap {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .timeline {
+            position: relative;
+            margin-top: 40px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #667eea;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 50px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 50px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-date {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 50px !important;
+                padding-right: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animate-on-scroll">
+                <h1>💼💕 Entrepreneur Shaadi</h1>
+                <p>Where Business Minds Find Love & Life Partners</p>
+                <p>The First Matrimony Platform Exclusively for Entrepreneurs</p>
+                <a href="https://github.com/beingarjun/Entrepreneurship-shaadi" class="cta-button">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">3.36M</div>
+                    <div class="stat-label">Unmarried Entrepreneurs in India</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">₹389 Cr</div>
+                    <div class="stat-label">Revenue Potential (Year 5)</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">535K</div>
+                    <div class="stat-label">Target Market (SAM)</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">8:1</div>
+                    <div class="stat-label">LTV/CAC Ratio</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">The Problem Entrepreneurs Face</h2>
+            <div class="problem-grid">
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">😔</div>
+                    <h3>Mismatched Expectations</h3>
+                    <p>Traditional matrimony sites don't understand the entrepreneurial lifestyle - the risks, long hours, and passion for building something from scratch.</p>
+                </div>
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">🤥</div>
+                    <h3>Fake Business Profiles</h3>
+                    <p>Anyone can claim to be a "businessman" without verification, leading to mismatched expectations and trust issues.</p>
+                </div>
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">💸</div>
+                    <h3>Financial Transparency Issues</h3>
+                    <p>No way to verify actual financial status, business success, or creditworthiness of potential partners.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Our Solution: Verified Entrepreneur Matching</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Business Verification</h3>
+                    <p>CIN/DIN number verification through MCA portal ensures only real entrepreneurs join</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">💳</div>
+                    <h3>Financial Transparency</h3>
+                    <p>Equifax API integration for credit scores and financial health verification</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Algorithm considers business compatibility, growth stage, industry synergy, and investment philosophy</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Success Stories</h3>
+                    <p>Track entrepreneur couples who found love and built business empires together</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🔒</div>
+                    <h3>ISO Security</h3>
+                    <p>Enterprise-grade security with ISO 27001/27002 compliance for data protection</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🌟</div>
+                    <h3>Elite Network</h3>
+                    <p>Connect with like-minded entrepreneurs who understand your journey and ambitions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitor Analysis -->
+    <section class="competitors">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">How We Compare to Traditional Matrimony Sites</h2>
+            <div class="comparison-table animate-on-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Entrepreneur Shaadi</th>
+                            <th>Shaadi.com</th>
+                            <th>Jeevansathi</th>
+                            <th>BharatMatrimony</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Business Verification</strong></td>
+                            <td class="entrepreneur-shaadi"><i class="fas fa-check check"></i> CIN/DIN Verified</td>
+                            <td><i class="fas fa-times cross"></i> Self-declared</td>
+                            <td><i class="fas fa-times cross"></i> Self-declared</td>
+                            <td><i class="fas fa-times cross"></i> Self-declared</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Financial Transparency</strong></td>
+                            <td class="entrepreneur-shaadi"><i class="fas fa-check check"></i> Equifax Integration</td>
+                            <td><i class="fas fa-times cross"></i> None</td>
+                            <td><i class="fas fa-times cross"></i> None</td>
+                            <td><i class="fas fa-times cross"></i> None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Business Compatibility</strong></td>
+                            <td class="entrepreneur-shaadi"><i class="fas fa-check check"></i> AI Algorithm</td>
+                            <td><i class="fas fa-times cross"></i> Basic filters</td>
+                            <td><i class="fas fa-times cross"></i> Basic filters</td>
+                            <td><i class="fas fa-times cross"></i> Basic filters</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Entrepreneur Focus</strong></td>
+                            <td class="entrepreneur-shaadi"><i class="fas fa-check check"></i> 100% Entrepreneurs</td>
+                            <td><i class="fas fa-times cross"></i> Mixed audience</td>
+                            <td><i class="fas fa-times cross"></i> Mixed audience</td>
+                            <td><i class="fas fa-times cross"></i> Mixed audience</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Industry Networking</strong></td>
+                            <td class="entrepreneur-shaadi"><i class="fas fa-check check"></i> Built-in</td>
+                            <td><i class="fas fa-times cross"></i> None</td>
+                            <td><i class="fas fa-times cross"></i> None</td>
+                            <td><i class="fas fa-times cross"></i> None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investment Philosophy</strong></td>
+                            <td class="entrepreneur-shaadi"><i class="fas fa-check check"></i> Matched</td>
+                            <td><i class="fas fa-times cross"></i> Not considered</td>
+                            <td><i class="fas fa-times cross"></i> Not considered</td>
+                            <td><i class="fas fa-times cross"></i> Not considered</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verification Features -->
+    <section class="verification">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Our Verification System</h2>
+            <div class="verification-grid">
+                <div class="verification-item animate-on-scroll">
+                    <i class="fas fa-building" style="font-size: 2rem; color: #667eea; margin-bottom: 15px;"></i>
+                    <h3>CIN Verification</h3>
+                    <p>Company Identification Number verification through MCA portal</p>
+                    <span class="verification-badge">✓ Verified</span>
+                </div>
+                <div class="verification-item animate-on-scroll">
+                    <i class="fas fa-user-tie" style="font-size: 2rem; color: #667eea; margin-bottom: 15px;"></i>
+                    <h3>DIN Verification</h3>
+                    <p>Director Identification Number for company directors</p>
+                    <span class="verification-badge">✓ Verified</span>
+                </div>
+                <div class="verification-item animate-on-scroll">
+                    <i class="fas fa-credit-card" style="font-size: 2rem; color: #667eea; margin-bottom: 15px;"></i>
+                    <h3>Credit Score</h3>
+                    <p>Equifax API integration for financial health verification</p>
+                    <span class="verification-badge">✓ Verified</span>
+                </div>
+                <div class="verification-item animate-on-scroll">
+                    <i class="fas fa-chart-line" style="font-size: 2rem; color: #667eea; margin-bottom: 15px;"></i>
+                    <h3>Business Performance</h3>
+                    <p>Revenue verification and business growth metrics</p>
+                    <span class="verification-badge">✓ Verified</span>
+                </div>
+                <div class="verification-item animate-on-scroll">
+                    <i class="fas fa-shield-alt" style="font-size: 2rem; color: #667eea; margin-bottom: 15px;"></i>
+                    <h3>Background Check</h3>
+                    <p>Comprehensive background verification for safety</p>
+                    <span class="verification-badge">✓ Verified</span>
+                </div>
+                <div class="verification-item animate-on-scroll">
+                    <i class="fas fa-graduation-cap" style="font-size: 2rem; color: #667eea; margin-bottom: 15px;"></i>
+                    <h3>Education & Skills</h3>
+                    <p>Educational qualifications and business skills verification</p>
+                    <span class="verification-badge">✓ Verified</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Size -->
+    <section class="market">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Massive Market Opportunity</h2>
+            <div class="market-stats">
+                <div class="market-card animate-on-scroll">
+                    <div class="market-number">3.36M</div>
+                    <h3>TAM</h3>
+                    <p>Total Addressable Market - Unmarried entrepreneurs in India</p>
+                </div>
+                <div class="market-card animate-on-scroll">
+                    <div class="market-number">535K</div>
+                    <h3>SAM</h3>
+                    <p>Serviceable Addressable Market - Tech-savvy premium entrepreneurs</p>
+                </div>
+                <div class="market-card animate-on-scroll">
+                    <div class="market-number">42.8K</div>
+                    <h3>SOM</h3>
+                    <p>Serviceable Obtainable Market - 5-year realistic target</p>
+                </div>
+                <div class="market-card animate-on-scroll">
+                    <div class="market-number">₹389 Cr</div>
+                    <h3>Revenue</h3>
+                    <p>Annual revenue potential by Year 5</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="roadmap">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Development Roadmap</h2>
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Month 1-3</div>
+                        <h3>MVP Development</h3>
+                        <p>Core platform development, basic matching algorithm, and CIN/DIN verification integration</p>
+                        <ul>
+                            <li>✅ Next.js + TypeScript frontend</li>
+                            <li>✅ Node.js + MongoDB backend</li>
+                            <li>✅ ISO 27001 security framework</li>
+                            <li>✅ GitHub repository setup</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Month 4-6</div>
+                        <h3>Beta Launch</h3>
+                        <p>Private beta with 500 verified entrepreneurs in Mumbai and Bangalore</p>
+                        <ul>
+                            <li>🔄 Equifax API integration</li>
+                            <li>🔄 Mobile app development</li>
+                            <li>🔄 Advanced matching algorithm</li>
+                            <li>🔄 Payment gateway integration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Month 7-12</div>
+                        <h3>Public Launch</h3>
+                        <p>Full platform launch with 10K users across top 5 metros</p>
+                        <ul>
+                            <li>📅 Marketing campaign launch</li>
+                            <li>📅 Influencer partnerships</li>
+                            <li>📅 Success story features</li>
+                            <li>📅 Enterprise features</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Month 13-18</div>
+                        <h3>Scale & Series A</h3>
+                        <p>25K users, Series A funding, and expansion to Tier-2 cities</p>
+                        <ul>
+                            <li>🚀 AI-powered recommendations</li>
+                            <li>🚀 Video dating features</li>
+                            <li>🚀 Business networking events</li>
+                            <li>🚀 International expansion</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Technology Stack</h2>
+            <div class="stats-grid">
+                <div class="stat-card animate-on-scroll">
+                    <i class="fab fa-react" style="font-size: 2rem; color: #61dafb; margin-bottom: 15px;"></i>
+                    <h3>Frontend</h3>
+                    <p>Next.js 14, TypeScript, Tailwind CSS, React Query</p>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <i class="fab fa-node-js" style="font-size: 2rem; color: #339933; margin-bottom: 15px;"></i>
+                    <h3>Backend</h3>
+                    <p>Node.js, Express.js, TypeScript, JWT Authentication</p>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <i class="fas fa-database" style="font-size: 2rem; color: #4db33d; margin-bottom: 15px;"></i>
+                    <h3>Database</h3>
+                    <p>MongoDB Atlas, Redis for caching, AWS S3 for storage</p>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <i class="fas fa-cloud" style="font-size: 2rem; color: #ff9900; margin-bottom: 15px;"></i>
+                    <h3>Infrastructure</h3>
+                    <p>Vercel hosting, AWS services, Cloudflare CDN</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3>Ready to Connect Business Minds? 💼💕</h3>
+            <p>Join the revolution in entrepreneurial matrimony</p>
+            <br>
+            <a href="https://github.com/beingarjun/Entrepreneurship-shaadi" class="cta-button">
+                <i class="fab fa-github"></i> Star on GitHub
+            </a>
+            <br><br>
+            <p>&copy; 2025 Entrepreneur Shaadi. Built with ❤️ for entrepreneurs by entrepreneurs.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.stat-card, .feature-card, .verification-item').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Dynamic counter animation
+        function animateCounters() {
+            document.querySelectorAll('.stat-number').forEach(counter => {
+                const target = counter.textContent;
+                const numericValue = target.replace(/[^0-9.]/g, '');
+                const suffix = target.replace(numericValue, '');
+                
+                let current = 0;
+                const increment = parseFloat(numericValue) / 100;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= parseFloat(numericValue)) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current) + suffix;
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
