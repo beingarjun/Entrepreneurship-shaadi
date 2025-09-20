@@ -12,7 +12,7 @@ export interface AuthenticatedUser {
 }
 
 export interface AuthRequest extends Request {
-  user?: AuthenticatedUser;
+  authUser?: AuthenticatedUser;  // Use different property name to avoid conflicts
 }
 
 // Generate JWT token
@@ -76,7 +76,7 @@ export const authenticateToken = (
     return;
   }
 
-  req.user = user;
+  req.authUser = user;
   next();
 };
 
@@ -92,7 +92,7 @@ export const optionalAuth = (
   if (token) {
     const user = verifyToken(token);
     if (user) {
-      req.user = user;
+      req.authUser = user;
     }
   }
 

@@ -10,7 +10,7 @@ const router = Router();
 const prisma = new PrismaClient();
 
 // POST /api/auth/signup
-router.post('/signup', async (req: Request, res: Response) => {
+router.post('/signup', async (req: Request, res: Response): Promise<void> => {
   try {
     // Validate input
     const validatedData = signupSchema.parse(req.body);
@@ -22,7 +22,8 @@ router.post('/signup', async (req: Request, res: Response) => {
     });
 
     if (existingUser) {
-      return res.status(400).json({ error: 'User already exists with this email' });
+      res.status(400).json({ error: 'User already exists with this email' });
+      return;
     }
 
     // Hash password
@@ -70,10 +71,11 @@ router.post('/signup', async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         error: 'Validation failed', 
         details: error.errors 
       });
+      return;
     }
     
     logger.error('Signup error:', error);
@@ -82,7 +84,7 @@ router.post('/signup', async (req: Request, res: Response) => {
 });
 
 // POST /api/auth/login
-router.post('/login', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response): Promise<void> => {
   try {
     // Validate input
     const validatedData = loginSchema.parse(req.body);
@@ -105,13 +107,15 @@ router.post('/login', async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid credentials' });
+      return;
     }
 
     // Verify password
     const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid credentials' });
+      return;
     }
 
     // Generate JWT token
@@ -134,10 +138,11 @@ router.post('/login', async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         error: 'Validation failed', 
         details: error.errors 
       });
+      return;
     }
     
     logger.error('Login error:', error);
@@ -158,9 +163,9 @@ router.post('/logout', async (_req: Request, res: Response) => {
 });
 
 // GET /api/auth/me - Get current user profile
-router.get('/me', authenticateToken, async (req: AuthRequest, res: Response) => {
+router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const userId = req.user?.id;
+    const userId = req.authUser?.id;
     
     const user = await prisma.user.findUnique({
       where: { id: userId },
@@ -193,7 +198,8 @@ router.get('/me', authenticateToken, async (req: AuthRequest, res: Response) => 
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: 'User not found' });
+      return;
     }
 
     res.json({

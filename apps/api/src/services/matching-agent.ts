@@ -154,7 +154,7 @@ export class EntrepreneurMatchingAgent {
 
       // Calculate compatibility scores for all potential matches
       const matchesWithScores = await Promise.all(
-        potentialMatches.map(async (match) => {
+        potentialMatches.map(async (match: any) => {
           const compatibility = await this.calculateCompatibility(criteria.userId, match.id);
           return {
             ...match,

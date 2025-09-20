@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { authenticateToken, AuthRequest } from '@/utils/auth';
@@ -16,11 +16,12 @@ const matchActionSchema = z.object({
 });
 
 // GET /api/match - Get AI-powered matches for current user
-router.get('/', authenticateToken, async (req: AuthRequest, res: Response) => {
+router.get('/', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const userId = req.user?.id;
+    const userId = req.authUser?.id;
     if (!userId) {
-      return res.status(401).json({ error: 'User not authenticated' });
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
     }
 
     // Build matching criteria
@@ -60,11 +61,12 @@ router.get('/', authenticateToken, async (req: AuthRequest, res: Response) => {
 });
 
 // POST /api/match/action - Like, pass, or super like a match
-router.post('/action', authenticateToken, async (req: AuthRequest, res: Response) => {
+router.post('/action', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const userId = req.user?.id;
+    const userId = req.authUser?.id;
     if (!userId) {
-      return res.status(401).json({ error: 'User not authenticated' });
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
     }
 
     const validatedData = matchActionSchema.parse(req.body);
@@ -94,13 +96,14 @@ router.post('/action', authenticateToken, async (req: AuthRequest, res: Response
 });
 
 // GET /api/match/compatibility/:userId - Get detailed compatibility analysis
-router.get('/compatibility/:userId', authenticateToken, async (req: AuthRequest, res: Response) => {
+router.get('/compatibility/:userId', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const currentUserId = req.user?.id;
+    const currentUserId = req.authUser?.id;
     const targetUserId = req.params.userId;
 
     if (!currentUserId) {
-      return res.status(401).json({ error: 'User not authenticated' });
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
     }
 
     // Get detailed compatibility analysis from AI agent
