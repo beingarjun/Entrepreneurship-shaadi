@@ -1,52 +1,51 @@
 {
-  "name": "entrepreneur-shaadi",
+  "name": "@entrepreneur-shaadi/web",
   "version": "1.0.0",
-  "description": "A founder verification and matching platform using MCA data",
+  "description": "Frontend web application for Entrepreneur Shaadi platform",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
-    "dev:api": "cd apps/api && npm run dev",
-    "dev:web": "cd apps/web && npm run dev",
-    "build": "npm run build:api && npm run build:web",
-    "build:api": "cd apps/api && npm run build",
-    "build:web": "cd apps/web && npm run build",
-    "start": "concurrently \"npm run start:api\" \"npm run start:web\"",
-    "start:api": "cd apps/api && npm run start",
-    "start:web": "cd apps/web && npm run start",
-    "test": "npm run test:api && npm run test:web",
-    "test:api": "cd apps/api && npm run test",
-    "test:web": "cd apps/web && npm run test",
-    "lint": "npm run lint:api && npm run lint:web",
-    "lint:api": "cd apps/api && npm run lint",
-    "lint:web": "cd apps/web && npm run lint",
-    "type-check": "npm run type-check:api && npm run type-check:web",
-    "type-check:api": "cd apps/api && npm run type-check",
-    "type-check:web": "cd apps/web && npm run type-check"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
+    "react-query": "^3.39.3",
+    "axios": "^1.6.2",
+    "zustand": "^4.4.7",
+    "zod": "^3.22.4",
+    "@hookform/resolvers": "^3.3.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.294.0",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "concurrently": "^8.2.0",
-    "typescript": "^5.0.4"
+    "@types/node": "^20.9.0",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.54.0",
+    "eslint-config-next": "^14.0.4",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.2"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/Entrepreneurship-shaadi.git"
-  },
-  "keywords": [
-    "entrepreneur",
-    "founder",
-    "verification",
-    "mca",
-    "matching",
-    "startup",
-    "india"
-  ],
-  "license": "MIT"
+    "node": ">=18.0.0"
+  }
 }
