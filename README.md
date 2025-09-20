@@ -4,7 +4,7 @@ A founder verification and matching platform that verifies founders via MCA (Min
 
 ## 🎯 Overview
 
-Entrepreneur Shaadi connects verified founders and entrepreneurs by leveraging official MCA data to build trust and enable meaningful professional relationships. The platform verifies Directors via DIN (Director Identification Number) and Companies via CIN (Corporate Identification Number) to create trustable profiles with verified credentials.
+Entrepreneur Shaadi connects verified founders and entrepreneurs by leveraging official MCA data to build trust and enable meaningful relationships. The platform verifies Directors via DIN (Director Identification Number) and Companies via CIN (Corporate Identification Number) to create trustable profiles with verified credentials.
 
 ## 🚀 Features
 
