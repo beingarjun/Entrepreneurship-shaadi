@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
+import Head from 'next/head';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient({
@@ -14,8 +15,13 @@ export default function App({ Component, pageProps }: AppProps) {
   }));
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-    </QueryClientProvider>
+    <>
+      <Head>
+        <script src="https://cdn.tailwindcss.com"></script>
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </>
   );
 }
